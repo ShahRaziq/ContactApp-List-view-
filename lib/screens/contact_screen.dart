@@ -212,23 +212,25 @@ class _ContactScreenState extends State<ContactScreen>
     await Future.delayed(const Duration(seconds: 1));
     setState(() {
       int last = contacts!.length;
-      AlertDialog alert = const AlertDialog(title: Text(" 5 random contacts added! "));
+     
       for (var i = 0; i < 5; i++) {
         int index = Random().nextInt(last);
         _suggestions.add(contacts![index]);
         contacts!.add(contacts![index]);
       }
-      showDialog(context: context, builder: (context) => alert);
+      
     });
    
   }
 
   loadMore() async {
     await Future.delayed(const Duration(seconds: 1));
+     AlertDialog alert = const AlertDialog(title: Text(" 5 random contacts added! "));
     setState(() {
       _suggestions.addAll(contacts!.getRange(takeIndex, takeIndex + 5));
       takeIndex += 5;
     });
+    showDialog(context: context, builder: (context) => alert);
     
   }
 
