@@ -24,7 +24,6 @@ class _ContactScreenState extends State<ContactScreen>
   int takeIndex = 10;
   late TabController tabController;
 
-
   @override
   void initState() {
     super.initState();
@@ -85,7 +84,7 @@ class _ContactScreenState extends State<ContactScreen>
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         appBar: AppBar(
           title: const Text(
-            "Calls",
+            "Vimigo Contacts",
             style: TextStyle(color: Colors.black),
           ),
           backgroundColor: Colors.transparent,
@@ -213,12 +212,15 @@ class _ContactScreenState extends State<ContactScreen>
     await Future.delayed(const Duration(seconds: 1));
     setState(() {
       int last = contacts!.length;
+      AlertDialog alert = const AlertDialog(title: Text(" 5 random contacts added! "));
       for (var i = 0; i < 5; i++) {
         int index = Random().nextInt(last);
         _suggestions.add(contacts![index]);
         contacts!.add(contacts![index]);
       }
+      showDialog(context: context, builder: (context) => alert);
     });
+   
   }
 
   loadMore() async {
@@ -227,6 +229,7 @@ class _ContactScreenState extends State<ContactScreen>
       _suggestions.addAll(contacts!.getRange(takeIndex, takeIndex + 5));
       takeIndex += 5;
     });
+    
   }
 
   setTime(String time) {
